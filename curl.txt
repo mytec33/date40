@@ -1,0 +1,19 @@
+Linux / macOS
+==============================
+
+
+
+curl -ik -H "Content-Type: application/json" -X POST -d '{"date": "4/15/1973"}' https://127.0.0.1:8010/api/CalcCalendarDate
+
+curl -ik -H "Content-Type: application/json" -X POST -d '{"date": "4/15/1973"}' https://127.0.0.1:8010/api/CalcCalendarDate
+172.27.146.100
+
+
+curl -ik -H "Content-Type: application/json" -X POST -d '{"date": ""}' https://127.0.0.1:8010/api/CalcHundredYearDate 
+
+
+### Windows ###
+curl.exe -k -H "Content-Type: application/json" -X POST -d '{\"date\": \"4/15/1973\"}' https://127.0.0.1:8010/api/CalcCalendarDate
+
+# Test bad values
+curl.exe -k -H "Content-Type: application/json" -X POST -d '{\"date\": \"abcde\"}' https://127.0.0.1:8010/api/CalcCalendarDate

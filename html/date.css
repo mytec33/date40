@@ -1,0 +1,108 @@
+body {
+  background-color: black;
+  color: rgb(31, 248, 31);
+  font-family: monospace;
+  font-size: large;
+  margin: 0;
+  padding: 0;
+}
+
+#exitText {
+  color: cornflowerblue;
+}
+
+#f3Text {
+  color: black;
+  background-color: darkgray;
+}
+
+.headerColumnLeft {
+  float: left;
+  font-family: monospace;
+  font-size: large;
+  width: 30%;
+}
+
+.headerColumn {
+  float: left;
+  font-family: monospace;
+  font-size: large;
+  text-align: center;
+  width: 40%;
+}
+
+.headerColumnRight {
+  float: left;
+  font-family: monospace;
+  font-size: large;
+  text-align: center;
+  width: 30%;
+}
+
+.headerDiv {
+  width: 600px;
+}
+
+.timeDiv {
+  font-size: inherit;
+  text-align: center;
+  width: 600px;
+}
+
+
+.dataColumnLeft {
+  float: left;
+  font-family: monospace;
+  font-size: large;
+  text-align: right;
+  width: 20%;
+}
+
+.dataColumnCenter {
+  float: left;
+  font-family: monospace;
+  font-size: large;
+  padding-left: 2%;
+  text-align: right;
+  width: 46%;
+}
+
+.dataColumnRight {
+  float: left;
+  font-family: monospace;
+  font-size: large;
+  padding-left: 2%;
+  text-align: left;
+  width: 15%;
+}
+
+.dataColumnCenterErrorText {
+  float: left;
+  font-family: monospace;
+  font-size: large;
+  padding-left: 2%;  
+  height: 3em;
+  text-align: left;
+  width: 43%;
+}
+
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.prompt {
+  color: darkslategray;
+  font-style: italic;
+  font-size: large;
+}
+
+.footerVersion {
+  margin-left: 200px;
+}
+
+.titleText {
+  color: white;
+}

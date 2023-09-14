@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="description" content="AS/400 date conversion 4.0">
+    <meta name="keywords" content="as400 as/400 hundred year date hyd 100 acsc conversion">
+    <meta name="viewport" content="width=1000, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="/date40//date.css">
+    <script src="/date40/date.js"></script>
+
+    <title>Date40</title>
+</head>
+
+<body>
+    <div class="row headerDiv">
+        <div class="headerColumnLeft">SYSDATE: <span id="sysdate">09022023</span></div>
+        <div class="headerColumn"><span class="titleText" id="titleText">DATE CONVERSION 4.0</span></div>
+        <div class="headerColumnRight">UDATE: <span id="udate">09022023</span></div>
+    </div>
+
+    <div class="row headerDiv">
+        <div class="headerColumnLeft">&nbsp;</div>
+        <div class="headerColumn" id="pageTime">00:00:00</div>
+        <div class="headerColumnRight">&nbsp;</div>
+    </div>
+
+    <p><br></p>
+
+    <div id="calendarDateInput">
+        <div class="row headerDiv">
+            <div class="dataColumnLeft"><label for="dateInput"><span class="titleText">INPUT:</span></label></div>
+            <div class="dataColumnCenter">Calendar Date: <input type="text" id="dateInput" placeholder="mmddyyyy"
+                    maxlength="10" size="10"></div>
+            <div class="dataColumnRight"><button id="calculateButton">Calc</button></div>
+        </div>
+    </div>
+
+    <p></p>
+
+    <div id="hundredYearDateInput">
+        <div class="row headerDiv">
+            <div class="dataColumnLeft">&nbsp;</div>
+            <div class="dataColumnCenter">100 Yr Date: <input type="text" id="hundredYearInput" placeholder="12345"
+                    maxlength="5" size="10"></div>
+            <div class="dataColumnRight"><button id="calculateHundredYear">Calc</button></div>
+        </div>
+    </div>
+
+    <p></p>
+
+    <div id="dataResponse">
+        <div class="row headerDiv">
+            <div class="dataColumnLeft"><span class="titleText">OUTPUT:</span></div>
+            <div class="dataColumnCenter">Calendar MM/DD/YY..........</div>
+            <div class="dataColumnRight" id="acscUsaStandard"></div>
+        </div>
+
+        <div class="row headerDiv">
+            <div class="dataColumnLeft">&nbsp;</div>
+            <div class="dataColumnCenter">Calendar YY-MM-DD..........</div>
+            <div class="dataColumnRight" id="acscInternational"></div>
+        </div>
+
+        <div class="row headerDiv">
+            <div class="dataColumnLeft">&nbsp;</div>
+            <div class="dataColumnCenter">Calendar DD.MM.YY..........</div>
+            <div class="dataColumnRight" id="acscEuropean"></div>
+        </div>
+
+        <div class="row headerDiv">
+            <div class="dataColumnLeft">&nbsp;</div>
+            <div class="dataColumnCenter">100 Yr Date................</div>
+            <div class="dataColumnRight" id="acscHundredYear"></div>
+        </div>
+
+        <div class="row headerDiv">
+            <div class="dataColumnLeft">&nbsp;</div>
+            <div class="dataColumnCenter">Julian.....................</div>
+            <div class="dataColumnRight" id="acscJulian"></div>
+        </div>
+
+        <p></p>
+
+        <div class="row headerDiv">
+            <div class="dataColumnLeft">&nbsp;</div>
+            <div class="dataColumnCenter">USA Standard...............</div>
+            <div class="dataColumnRight" id="usaStandard"></div>
+        </div>
+
+        <div class="row headerDiv">
+            <div class="dataColumnLeft">&nbsp;</div>
+            <div class="dataColumnCenter">International Standard.....</div>
+            <div class="dataColumnRight" id="internationalStandard"></div>
+        </div>
+
+        <div class="row headerDiv">
+            <div class="dataColumnLeft">&nbsp;</div>
+            <div class="dataColumnCenter">European Standard..........</div>
+            <div class="dataColumnRight" id="europeanStandard"></div>
+        </div>
+
+        <p><br></p>
+
+        <div class="row headerDiv">
+            <div class="dataColumnLeft">&nbsp;</div>
+            <div class="dataColumnCenter">Day of Week................</div>
+            <div class="dataColumnRight" id="dayOfWeek"></div>
+        </div>
+        <div class="row headerDiv">
+            <div class="dataColumnLeft">&nbsp;</div>
+            <div class="dataColumnCenter">Error Flag.................</div>
+            <div class="dataColumnRight"><span class="titleText" id="errorFlag">0</span></div>
+        </div>
+
+        <div class="row headerDiv">
+            <div class="dataColumnLeft">&nbsp;</div>
+            <div class="dataColumnCenterErrorText titleText" id="errorText"></div>
+            <div class="dataColumnRight"></div>
+        </div>
+    </div>
+
+    <p><br></p>
+
+    <div id="footer">
+        <p>
+            &nbsp;&nbsp;<span id="f3Text">F3</span><span id="exitText">=Exit</span><br>
+            ____________________________________________________________________<br>
+            &nbsp;&nbsp;&nbsp;ONLINE-TLS 1.2<span class="footerVersion">4,45</span>
+        </p>
+    </div>
+</body>
+
+</html>
