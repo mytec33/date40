@@ -23,60 +23,172 @@ func TestCalcHundreYearDate_ErrorHandling(t *testing.T) {
 	router.POST("/api/CalcHundredYearDate", CalcHundreYearDate)
 
 	testCases := []struct {
-		name              string
-		payload           string
-		expectedStatus    int
-		expectedErrorFlag string
-		expectedErrorText string
+		name           string
+		payload        string
+		expectedStatus int
+		expectedValues models.OutputResults
 	}{
 		{
-			name:              "Invalid value",
-			payload:           `{"date": "abcde3d4"}`,
-			expectedStatus:    http.StatusBadRequest,
-			expectedErrorFlag: "HTTP 400",
-			expectedErrorText: "100 year date out of range: must be between 0 and 99999",
+			name:           "Invalid value - mixed characters",
+			payload:        `{"date": "abcde3d4"}`,
+			expectedStatus: http.StatusBadRequest,
+			expectedValues: models.OutputResults{
+				AcscEuropean:          "",
+				AcscHundredYear:       "",
+				AcscInternational:     "",
+				AcscJulian:            "",
+				AcscUsaStandard:       "",
+				DayOfWeek:             "",
+				ErrorFlag:             "HTTP 400",
+				ErrorText:             "invalid 100 year date: must be a positive number",
+				EuropeanStandard:      "",
+				InternationalStandard: "",
+				UsaStandard:           "",
+			},
 		},
 		{
-			name:              "Invalid value",
-			payload:           `{"date": "abcde"}`,
-			expectedStatus:    http.StatusBadRequest,
-			expectedErrorFlag: "HTTP 400",
-			expectedErrorText: "invalid hundred year date value: must be a positive number",
+			name:           "Invalid value - letters",
+			payload:        `{"date": "abcde"}`,
+			expectedStatus: http.StatusBadRequest,
+			expectedValues: models.OutputResults{
+				AcscEuropean:          "",
+				AcscHundredYear:       "",
+				AcscInternational:     "",
+				AcscJulian:            "",
+				AcscUsaStandard:       "",
+				DayOfWeek:             "",
+				ErrorFlag:             "HTTP 400",
+				ErrorText:             "invalid 100 year date: must be a positive number",
+				EuropeanStandard:      "",
+				InternationalStandard: "",
+				UsaStandard:           "",
+			},
 		},
 		{
-			name:              "Invalid value",
-			payload:           `{"date": ""}`,
-			expectedStatus:    http.StatusBadRequest,
-			expectedErrorFlag: "HTTP 400",
-			expectedErrorText: "invalid hundred year date value: must be a positive number",
+			name:           "Invalid value - empty",
+			payload:        `{"date": ""}`,
+			expectedStatus: http.StatusBadRequest,
+			expectedValues: models.OutputResults{
+				AcscEuropean:          "",
+				AcscHundredYear:       "",
+				AcscInternational:     "",
+				AcscJulian:            "",
+				AcscUsaStandard:       "",
+				DayOfWeek:             "",
+				ErrorFlag:             "HTTP 400",
+				ErrorText:             "invalid 100 year date: empty",
+				EuropeanStandard:      "",
+				InternationalStandard: "",
+				UsaStandard:           "",
+			},
 		},
 		{
-			name:              "Invalid value",
-			payload:           `{"date": "3.14"}`,
-			expectedStatus:    http.StatusBadRequest,
-			expectedErrorFlag: "HTTP 400",
-			expectedErrorText: "invalid hundred year date value: must be a positive number",
+			name:           "Invalid value - decimal",
+			payload:        `{"date": "3.14"}`,
+			expectedStatus: http.StatusBadRequest,
+			expectedValues: models.OutputResults{
+				AcscEuropean:          "",
+				AcscHundredYear:       "",
+				AcscInternational:     "",
+				AcscJulian:            "",
+				AcscUsaStandard:       "",
+				DayOfWeek:             "",
+				ErrorFlag:             "HTTP 400",
+				ErrorText:             "invalid 100 year date: must be a positive number",
+				EuropeanStandard:      "",
+				InternationalStandard: "",
+				UsaStandard:           "",
+			},
 		},
 		{
-			name:              "Hundred Year Out of Range",
-			payload:           `{"date": "-1"}`,
-			expectedStatus:    http.StatusBadRequest,
-			expectedErrorFlag: "HTTP 400",
-			expectedErrorText: "hundred year date out of range: must be between 0 and 99999",
+			name:           "Hundred Year Out of Range - Negative",
+			payload:        `{"date": "-1"}`,
+			expectedStatus: http.StatusBadRequest,
+			expectedValues: models.OutputResults{
+				AcscEuropean:          "",
+				AcscHundredYear:       "",
+				AcscInternational:     "",
+				AcscJulian:            "",
+				AcscUsaStandard:       "",
+				DayOfWeek:             "",
+				ErrorFlag:             "HTTP 400",
+				ErrorText:             "100 year date out of range: must be between 0 and 99999",
+				EuropeanStandard:      "",
+				InternationalStandard: "",
+				UsaStandard:           "",
+			},
 		},
 		{
-			name:              "Hundred Year Out of Range",
-			payload:           `{"date": "100000"}`,
-			expectedStatus:    http.StatusBadRequest,
-			expectedErrorFlag: "HTTP 400",
-			expectedErrorText: "hundred year date out of range: must be between 0 and 99999",
+			name:           "Hundred Year Out of Range - High",
+			payload:        `{"date": "100000"}`,
+			expectedStatus: http.StatusBadRequest,
+			expectedValues: models.OutputResults{
+				AcscEuropean:          "",
+				AcscHundredYear:       "",
+				AcscInternational:     "",
+				AcscJulian:            "",
+				AcscUsaStandard:       "",
+				DayOfWeek:             "",
+				ErrorFlag:             "HTTP 400",
+				ErrorText:             "100 year date out of range: must be between 0 and 99999",
+				EuropeanStandard:      "",
+				InternationalStandard: "",
+				UsaStandard:           "",
+			},
 		},
 		{
-			name:              "Malformed JSON",
-			payload:           `{"date": ""`,
-			expectedStatus:    http.StatusBadRequest,
-			expectedErrorFlag: "HTTP 400",
-			expectedErrorText: "unexpected EOF",
+			name:           "Malformed JSON",
+			payload:        `{"date": ""`,
+			expectedStatus: http.StatusBadRequest,
+			expectedValues: models.OutputResults{
+				AcscEuropean:          "",
+				AcscHundredYear:       "",
+				AcscInternational:     "",
+				AcscJulian:            "",
+				AcscUsaStandard:       "",
+				DayOfWeek:             "",
+				ErrorFlag:             "HTTP 400",
+				ErrorText:             "unexpected EOF",
+				EuropeanStandard:      "",
+				InternationalStandard: "",
+				UsaStandard:           "",
+			},
+		},
+		{
+			name:           "Valid HYD Date - 12345",
+			payload:        `{"date": "12345"}`,
+			expectedStatus: http.StatusOK,
+			expectedValues: models.OutputResults{
+				AcscEuropean:          "19.10.33",
+				AcscHundredYear:       "12345",
+				AcscInternational:     "33-10-19",
+				AcscJulian:            "33-292",
+				AcscUsaStandard:       "10/19/33",
+				DayOfWeek:             "THU.",
+				ErrorFlag:             "0",
+				ErrorText:             "",
+				EuropeanStandard:      "19.10.1933",
+				InternationalStandard: "1933-10-19",
+				UsaStandard:           "10/19/1933",
+			},
+		},
+		{
+			name:           "Valid HYD Date Used by Date Test- 45189",
+			payload:        `{"date": "45189"}`,
+			expectedStatus: http.StatusOK,
+			expectedValues: models.OutputResults{
+				AcscEuropean:          "21.09.23",
+				AcscHundredYear:       "45189",
+				AcscInternational:     "23-09-21",
+				AcscJulian:            "23-264",
+				AcscUsaStandard:       " 9/21/23",
+				DayOfWeek:             "THU.",
+				ErrorFlag:             "0",
+				ErrorText:             "",
+				EuropeanStandard:      "21.09.2023",
+				InternationalStandard: "2023-09-21",
+				UsaStandard:           " 9/21/2023",
+			},
 		},
 	}
 
@@ -95,7 +207,17 @@ func TestCalcHundreYearDate_ErrorHandling(t *testing.T) {
 			assert.NoError(t, err)
 			assert.NotEmpty(t, responseWrapper.Results.ErrorFlag)
 
-			assert.Equal(t, tc.expectedErrorFlag, responseWrapper.Results.ErrorFlag)
+			assert.Equal(t, tc.expectedValues.AcscEuropean, responseWrapper.Results.AcscEuropean)
+			assert.Equal(t, tc.expectedValues.AcscHundredYear, responseWrapper.Results.AcscHundredYear)
+			assert.Equal(t, tc.expectedValues.AcscInternational, responseWrapper.Results.AcscInternational)
+			assert.Equal(t, tc.expectedValues.AcscJulian, responseWrapper.Results.AcscJulian)
+			assert.Equal(t, tc.expectedValues.AcscUsaStandard, responseWrapper.Results.AcscUsaStandard)
+			assert.Equal(t, tc.expectedValues.DayOfWeek, responseWrapper.Results.DayOfWeek)
+			assert.Equal(t, tc.expectedValues.ErrorFlag, responseWrapper.Results.ErrorFlag)
+			assert.Equal(t, tc.expectedValues.ErrorText, responseWrapper.Results.ErrorText)
+			assert.Equal(t, tc.expectedValues.EuropeanStandard, responseWrapper.Results.EuropeanStandard)
+			assert.Equal(t, tc.expectedValues.InternationalStandard, responseWrapper.Results.InternationalStandard)
+			assert.Equal(t, tc.expectedValues.UsaStandard, responseWrapper.Results.UsaStandard)
 		})
 	}
 }
@@ -200,6 +322,24 @@ func TestCalcHundreYearDate_ValidValues(t *testing.T) {
 				EuropeanStandard:      "14.10.2173",
 				InternationalStandard: "2173-10-14",
 				UsaStandard:           "10/14/2173",
+			},
+		},
+		{
+			name:           "Valid Date Used By HYD Test - 9/21/2023",
+			payload:        `{"date": "9/21/2023"}`,
+			expectedStatus: http.StatusOK,
+			expectedValues: models.OutputResults{
+				AcscEuropean:          "21.09.23",
+				AcscHundredYear:       "45189",
+				AcscInternational:     "23-09-21",
+				AcscJulian:            "23-264",
+				AcscUsaStandard:       " 9/21/23",
+				DayOfWeek:             "THU.",
+				ErrorFlag:             "0",
+				ErrorText:             "",
+				EuropeanStandard:      "21.09.2023",
+				InternationalStandard: "2023-09-21",
+				UsaStandard:           " 9/21/2023",
 			},
 		},
 		{

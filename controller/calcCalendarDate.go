@@ -27,7 +27,7 @@ func CalcCalendarDate(context *gin.Context) {
 	var output models.OutputResults
 
 	handleError := func(status int, errorString string) {
-		output.ErrorFlag = "HTTP " + strconv.Itoa(status)
+		output.ErrorFlag = "HTTP " + strconv.Itoa(http.StatusBadRequest)
 		output.ErrorText = errorString
 		context.JSON(status, gin.H{"results": output})
 	}
@@ -38,35 +38,23 @@ func CalcCalendarDate(context *gin.Context) {
 	}
 
 	if input.Date == "" {
-		output.ErrorFlag = "HTTP " + strconv.Itoa(http.StatusBadRequest)
-		output.ErrorText = "invalid date: empty"
-		context.JSON(http.StatusBadRequest, gin.H{"results": output})
-
+		handleError(http.StatusBadRequest, "invalid date: empty")
 		return
 	}
 
 	if strings.Contains(input.Date, "-") {
-		output.ErrorFlag = "HTTP " + strconv.Itoa(http.StatusBadRequest)
-		output.ErrorText = "invalid separators: use / instead"
-		context.JSON(http.StatusBadRequest, gin.H{"results": output})
-
+		handleError(http.StatusBadRequest, "invalid separators: use / instead")
 		return
 	}
 
 	if strings.Contains(input.Date, ".") {
-		output.ErrorFlag = "HTTP " + strconv.Itoa(http.StatusBadRequest)
-		output.ErrorText = "invalid separators: use / instead"
-		context.JSON(http.StatusBadRequest, gin.H{"results": output})
-
+		handleError(http.StatusBadRequest, "invalid separators: use / instead")
 		return
 	}
 
 	parsedDate, err := time.Parse("1/2/2006", input.Date)
 	if err != nil {
-		output.ErrorFlag = "HTTP " + strconv.Itoa(http.StatusBadRequest)
-		output.ErrorText = "invalid date: " + input.Date
-		context.JSON(http.StatusBadRequest, gin.H{"results": output})
-
+		handleError(http.StatusBadRequest, "invalid date: "+input.Date)
 		return
 	}
 
