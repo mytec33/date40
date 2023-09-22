@@ -13,7 +13,7 @@ curl -ik -H "Content-Type: application/json" -X POST -d '{"date": ""}' https://1
 
 
 ### Windows ###
-curl.exe -k -H "Content-Type: application/json" -X POST -d '{\"date\": \"4/15/1973\"}' https://127.0.0.1:8010/api/CalcCalendarDate
+curl.exe -k -H "Content-Type: application/json" -X POST -d '{\"date\": \"1/1/2023\"}' https://127.0.0.1:8010/api/CalcCalendarDate
 
 # Test bad values
 curl.exe -k -H "Content-Type: application/json" -X POST -d '{\"date\": \"abcde\"}' https://127.0.0.1:8010/api/CalcCalendarDate

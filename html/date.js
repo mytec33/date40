@@ -73,14 +73,14 @@ document.addEventListener('DOMContentLoaded', function () {
     makeAPICall('https://dolotsoflittlethings.com:8010/api/CalcCalendarDate', dateInput.value);
   });
 
-  calculateHundredYear.addEventListener('click', function () {
-    makeAPICall('https://dolotsoflittlethings.com:8010/api/CalcHundredYearDate', hundredYearInput.value);
-  });
-
   dateInput.addEventListener('keyup', function (event) {
     if (event.key === 'Enter') {
       makeAPICall('https://dolotsoflittlethings.com:8010/api/CalcCalendarDate', dateInput.value);
     }
+  });
+
+  calculateHundredYear.addEventListener('click', function () {
+    makeAPICall('https://dolotsoflittlethings.com:8010/api/CalcHundredYearDate', hundredYearInput.value);
   });
 
   hundredYearInput.addEventListener('keyup', function (event) {

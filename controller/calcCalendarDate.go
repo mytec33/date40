@@ -27,7 +27,7 @@ func CalcCalendarDate(context *gin.Context) {
 	var output models.OutputResults
 
 	handleError := func(status int, errorString string) {
-		output.ErrorFlag = "HTTP: " + strconv.Itoa(status)
+		output.ErrorFlag = "HTTP " + strconv.Itoa(status)
 		output.ErrorText = errorString
 		context.JSON(status, gin.H{"results": output})
 	}
@@ -38,8 +38,24 @@ func CalcCalendarDate(context *gin.Context) {
 	}
 
 	if input.Date == "" {
-		output.ErrorFlag = "HTTP: " + strconv.Itoa(http.StatusBadRequest)
+		output.ErrorFlag = "HTTP " + strconv.Itoa(http.StatusBadRequest)
 		output.ErrorText = "invalid date: empty"
+		context.JSON(http.StatusBadRequest, gin.H{"results": output})
+
+		return
+	}
+
+	if strings.Contains(input.Date, "-") {
+		output.ErrorFlag = "HTTP " + strconv.Itoa(http.StatusBadRequest)
+		output.ErrorText = "invalid separators: use / instead"
+		context.JSON(http.StatusBadRequest, gin.H{"results": output})
+
+		return
+	}
+
+	if strings.Contains(input.Date, ".") {
+		output.ErrorFlag = "HTTP " + strconv.Itoa(http.StatusBadRequest)
+		output.ErrorText = "invalid separators: use / instead"
 		context.JSON(http.StatusBadRequest, gin.H{"results": output})
 
 		return
@@ -47,16 +63,16 @@ func CalcCalendarDate(context *gin.Context) {
 
 	parsedDate, err := time.Parse("1/2/2006", input.Date)
 	if err != nil {
-		output.ErrorFlag = "HTTP: " + strconv.Itoa(http.StatusBadRequest)
+		output.ErrorFlag = "HTTP " + strconv.Itoa(http.StatusBadRequest)
 		output.ErrorText = "invalid date: " + input.Date
 		context.JSON(http.StatusBadRequest, gin.H{"results": output})
 
 		return
 	}
 
-	output = calcDatesByCalendarDate(parsedDate.String())
+	output = calcDatesByCalendarDate(parsedDate.Format("1/2/2006"))
 
-	context.JSON(http.StatusOK, gin.H{"results": output})
+	context.IndentedJSON(http.StatusOK, gin.H{"results": output})
 }
 
 func isHydInRange(number int) bool {
@@ -68,7 +84,7 @@ func CalcHundreYearDate(context *gin.Context) {
 	var output models.OutputResults
 
 	handleError := func(status int, errorString string) {
-		output.ErrorFlag = "HTTP: " + strconv.Itoa(status)
+		output.ErrorFlag = "HTTP " + strconv.Itoa(status)
 		output.ErrorText = errorString
 		context.JSON(status, gin.H{"results": output})
 	}
@@ -101,7 +117,7 @@ func CalcHundreYearDate(context *gin.Context) {
 	}
 
 	output = calcDatesByCalendarDate(inputDate)
-	context.JSON(http.StatusOK, gin.H{"results": output})
+	context.IndentedJSON(http.StatusOK, gin.H{"results": output})
 }
 
 func calcCalendarDateByHundredYear(inputDate int) (string, error) {
