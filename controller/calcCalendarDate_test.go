@@ -12,10 +12,6 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-type ResponseWrapper struct {
-	Results models.OutputResults `json:"results"`
-}
-
 func TestCalcHundreYearDate_ValidValues(t *testing.T) {
 	gin.SetMode(gin.ReleaseMode)
 
